@@ -67,9 +67,11 @@ DJANGO_APPS = [
 ]
 THIRD_PARTY_APPS = [
     'rest_framework',
+    'rest_registration',
+    'oauth2_provider',
 ]
 LOCAL_APPS = [
-    'dappertask.users.apps.UsersAppConfig',
+    'dappertask.api.apps.ApiConfig',
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -90,7 +92,7 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'api.AppUser'
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
 LOGIN_REDIRECT_URL = 'users:redirect'
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
@@ -219,6 +221,37 @@ ADMINS = [
 # https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        'rest_framework.authentication.TokenAuthentication',
+
+        # For Django-oauth. See: https://django-oauth-toolkit.readthedocs.io/en/latest/rest-framework/getting_started.html#step-1-minimal-setup  # NOQA
+
+
+    ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+        'rest_framework.renderers.AdminRenderer',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 100,
+    'COERCE_DECIMAL_TO_STRING': False,
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+}
+
+REST_REGISTRATION = {
+    'REGISTER_VERIFICATION_URL': 'https://frontend-url/verify-user/',
+    'RESET_PASSWORD_VERIFICATION_URL': 'https://frontend-url/reset-password/',
+    'REGISTER_EMAIL_VERIFICATION_URL': 'https://frontend-url/verify-email/',
+
+    'VERIFICATION_FROM_EMAIL': 'no-reply@example.com',
+}
 
 # django-allauth
 # ------------------------------------------------------------------------------
@@ -230,9 +263,9 @@ ACCOUNT_EMAIL_REQUIRED = True
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_ADAPTER = 'dappertask.users.adapters.AccountAdapter'
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
-SOCIALACCOUNT_ADAPTER = 'dappertask.users.adapters.SocialAccountAdapter'
+# ACCOUNT_ADAPTER = 'dappertask.users.adapters.AccountAdapter'
+# # https://django-allauth.readthedocs.io/en/latest/configuration.html
+# SOCIALACCOUNT_ADAPTER = 'dappertask.users.adapters.SocialAccountAdapter'
 
 
 # Your stuff...
