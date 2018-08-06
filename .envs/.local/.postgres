@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=dappertask
+POSTGRES_USER=huMLJwGGmqhUMCxydmGIIDEvZmJnIuov
+POSTGRES_PASSWORD=5UaEb71AW36M9ctHl9Ih4BJUwE5xeFZ8zgyuvWblcQmqjZEp3UXqmObqOCJJDdoJ

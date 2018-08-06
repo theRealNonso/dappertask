@@ -1,0 +1,5 @@
+[run]
+include = dappertask/*
+omit = *migrations*, *tests*
+plugins =
+    django_coverage_plugin
