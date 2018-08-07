@@ -41,6 +41,7 @@ class AppUserManager(BaseUserManager):
 
 class AppUser(AbstractUser):
     username = models.CharField(max_length=5, default="", unique=False)
+    phone = models.CharField(max_length=11, unique=True)
     email = models.EmailField(_('email address'), unique=True)
 
     USERNAME_FIELD = 'email'
