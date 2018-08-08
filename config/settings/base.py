@@ -125,6 +125,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_REGISTRATION = {
+    'REGISTER_VERIFICATION_URL': 'https://frontend-url/verify-user/',
+    'RESET_PASSWORD_VERIFICATION_URL': 'https://frontend-url/reset-password/',
+    'REGISTER_EMAIL_VERIFICATION_URL': 'https://frontend-url/verify-email/',
+
+    'VERIFICATION_FROM_EMAIL': 'no-reply@example.com',
+}
+
 # MIDDLEWARE
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
@@ -195,6 +203,16 @@ TEMPLATES = [
         },
     },
 ]
+
+OAUTH2_PROVIDER = {
+    # this is the list of available scopes
+    'SCOPES': {
+        'read': 'Read scope',
+        'write': 'Write scope',
+    },
+    'ACCESS_TOKEN_EXPIRE_SECONDS': 31536000,  # Sets OAUTH access tokens good for a year
+}
+
 # http://django-crispy-forms.readthedocs.io/en/latest/install.html#template-packs
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -245,13 +263,7 @@ REST_FRAMEWORK = {
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
 
-REST_REGISTRATION = {
-    'REGISTER_VERIFICATION_URL': 'https://frontend-url/verify-user/',
-    'RESET_PASSWORD_VERIFICATION_URL': 'https://frontend-url/reset-password/',
-    'REGISTER_EMAIL_VERIFICATION_URL': 'https://frontend-url/verify-email/',
-
-    'VERIFICATION_FROM_EMAIL': 'no-reply@example.com',
-}
+FRONTEND_URL = env.url('FRONTEND_BASE_URL', 'http://localhost:3000')
 
 # django-allauth
 # ------------------------------------------------------------------------------
