@@ -47,3 +47,19 @@ class AppUser(AbstractUser):
     REQUIRED_FIELDS = []
 
     objects = AppUserManager()
+
+
+JOB_STATUS = (
+    ('ACTIVE', 'Active'),
+    ('PROGRESS', 'Inprogress'),
+    ('DONE', 'Done')
+)
+
+
+class Job(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey(AppUser, blank=False, on_delete=models.CASCADE)
+    price = models.DecimalField(blank=False, max_digits=5, decimal_places=2)
+    job_status = models.CharField(max_length=10, blank=False, choices=JOB_STATUS)
+    location = models.TextField()
+    note = models.TextField()

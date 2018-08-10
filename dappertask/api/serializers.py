@@ -1,7 +1,6 @@
 from django.conf import settings
-from django.core.mail import send_mail
 from rest_framework import serializers
-import api.models as tm
+import api.models as dm
 
 
 ###############################################################################
@@ -24,3 +23,12 @@ class AppUserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         appuser = tm.AppUser.objects.create_user(**validated_data)
         return appuser
+
+
+class JobSerializer(serializers.ModelSerializer):
+    creator = serializers.StringRelatedField(
+        default=serializers.CurrentUserDefault(), read_only=True)
+
+    class Meta:
+        model = dm.Job
+        fields = "__all__"
